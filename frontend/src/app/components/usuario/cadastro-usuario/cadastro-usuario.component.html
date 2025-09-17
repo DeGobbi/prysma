@@ -1,0 +1,47 @@
+<div class="cadastro-container">
+  <h2>Cadastro de Usuário</h2>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Nome -->
+    <div>
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" />
+      <small *ngIf="cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.invalid">
+        O nome é obrigatório.
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+      <small *ngIf="cadastroForm.get('email')?.touched && cadastroForm.get('email')?.invalid">
+        Insira um email válido.
+      </small>
+    </div>
+
+    <!-- Senha -->
+    <div>
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" formControlName="senha" />
+      <small *ngIf="cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.invalid">
+        A senha deve ter pelo menos 6 caracteres.
+      </small>
+    </div>
+
+    <!-- Confirmar Senha -->
+    <div>
+      <label for="confirmarSenha">Confirmar Senha</label>
+      <input id="confirmarSenha" type="password" formControlName="confirmarSenha" />
+      <small *ngIf="cadastroForm.hasError('senhasDiferentes') && cadastroForm.get('confirmarSenha')?.touched">
+        As senhas não coincidem.
+      </small>
+    </div>
+
+    <!-- Botão -->
+    <button type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
+  </form>
+
+   <p *ngIf="mensagem">{{ mensagem }}</p>
+</div>
