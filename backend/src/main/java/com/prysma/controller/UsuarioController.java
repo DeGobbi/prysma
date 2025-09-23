@@ -1,9 +1,9 @@
 package com.prysma.controller;
 
-import com.prysma.dto.LoginDTO;
-import com.prysma.dto.LoginResponseDTO;
-import com.prysma.dto.UsuarioCreateDTO;
-import com.prysma.dto.UsuarioDTO;
+import com.prysma.dto.usuario.LoginDTO;
+import com.prysma.dto.usuario.LoginResponseDTO;
+import com.prysma.dto.usuario.UsuarioCreateDTO;
+import com.prysma.dto.usuario.UsuarioDTO;
 import com.prysma.service.UsuarioService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;

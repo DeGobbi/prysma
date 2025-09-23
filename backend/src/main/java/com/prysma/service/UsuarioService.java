@@ -1,12 +1,12 @@
 package com.prysma.service;
 
-import com.prysma.dto.LoginDTO;
-import com.prysma.dto.LoginResponseDTO;
-import com.prysma.dto.UsuarioDTO;
-import com.prysma.dto.UsuarioCreateDTO;
+import com.prysma.dto.usuario.LoginDTO;
+import com.prysma.dto.usuario.LoginResponseDTO;
+import com.prysma.dto.usuario.UsuarioDTO;
+import com.prysma.dto.usuario.UsuarioCreateDTO;
 import com.prysma.mapper.UsuarioMapper;
-import com.prysma.model.Usuario;
-import com.prysma.repository.UsuarioRepository;
+import com.prysma.model.usuario.Usuario;
+import com.prysma.repository.usuario.UsuarioRepository;
 import com.prysma.config.JwtUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,6 @@
-package com.prysma.repository;
+package com.prysma.repository.usuario;
 
-import com.prysma.model.Usuario;
+import com.prysma.model.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

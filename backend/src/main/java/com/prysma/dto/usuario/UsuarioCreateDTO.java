@@ -1,4 +1,4 @@
-package com.prysma.dto;
+package com.prysma.dto.usuario;
 
 public class UsuarioCreateDTO {
     private String nome;

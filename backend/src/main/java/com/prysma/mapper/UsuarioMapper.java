@@ -1,8 +1,8 @@
 package com.prysma.mapper;
 
-import com.prysma.dto.UsuarioDTO;
-import com.prysma.dto.UsuarioCreateDTO;
-import com.prysma.model.Usuario;
+import com.prysma.dto.usuario.UsuarioDTO;
+import com.prysma.dto.usuario.UsuarioCreateDTO;
+import com.prysma.model.usuario.Usuario;
 
 public class UsuarioMapper {
 

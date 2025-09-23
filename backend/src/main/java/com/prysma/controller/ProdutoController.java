@@ -2,8 +2,8 @@ package com.prysma.controller;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import com.prysma.model.Produto;
-import com.prysma.repository.ProdutoRepository;
+import com.prysma.model.produto.Produto;
+import com.prysma.repository.produto.ProdutoRepository;
 
 @RestController
 @RequestMapping("/api/produtos")

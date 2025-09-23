@@ -1,4 +1,4 @@
-package com.prysma.model;
+package com.prysma.model.usuario;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -55,7 +55,6 @@ public class Usuario {
 
     // Getters e Setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
