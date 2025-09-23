@@ -4,11 +4,12 @@ import { CadastroUsuarioComponent } from './components/usuario/cadastro-usuario/
 import { LoginComponent } from './components/usuario/login/login.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 
 export const routes: Routes = [
     { path: 'cadastrar', component: CadastroUsuarioComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard] },
+    { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

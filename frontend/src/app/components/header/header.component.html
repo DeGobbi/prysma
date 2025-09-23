@@ -8,7 +8,10 @@
     <ng-container *ngIf="usuarioService.usuario$ | async as usuario; else guest">
       <li><a routerLink="/perfil">Perfil ({{ usuario.nome }})</a></li>
       <li><a (click)="logout()">Logout</a></li>
+      <li><a *ngIf="usuario.admin" routerLink="/admin">Admin</a></li>
     </ng-container>
+
+    
 
     <!-- se não tiver usuário logado -->
     <ng-template #guest>

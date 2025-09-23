@@ -9,7 +9,7 @@ export interface Usuario {
   nome: string;
   email: string;
   senha?: string;
-  roles?: string[];
+  admin?: boolean;
 }
 
 @Injectable({
@@ -49,19 +49,13 @@ export class UsuarioService {
   // ---------- SESSÃO / AUTENTICAÇÃO ----------
   carregarUsuario(): Observable<Usuario | null> {
   return this.http.get<Usuario>(`${this.apiUrl}/me`, { withCredentials: true }).pipe(
-    tap(usuario => this.usuarioSubject.next(usuario)),
+    tap(usuario => {
+      this.usuarioSubject.next(usuario)
+  }),
     catchError(() => {
       this.usuarioSubject.next(null);
       return of(null);
     })
   );
 }
-
-  get usuarioAtual(): Usuario | null {
-    return this.usuarioSubject.value;
-  }
-
-  isLoggedIn(): boolean {
-    return this.usuarioSubject !== null;
-  }
 }

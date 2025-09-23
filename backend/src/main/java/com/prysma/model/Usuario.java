@@ -2,8 +2,6 @@ package com.prysma.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -22,15 +20,11 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    private boolean ativo = true;
+    @Column(nullable = false)
+    private boolean isAdmin = false; // por padrão não é admin
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "usuario_roles",
-            joinColumns = @JoinColumn(name = "usuario_id")
-    )
-    @Column(name = "role")
-    private Set<String> roles = new HashSet<>();
+    @Column(nullable = false)
+    private boolean ativo = true;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
@@ -44,6 +38,7 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.isAdmin = false;
         this.ativo = true;
     }
 
@@ -71,11 +66,11 @@ public class Usuario {
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
 
+    public boolean isAdmin() { return isAdmin; }
+    public void setAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
+
     public boolean isAtivo() { return ativo; }
     public void setAtivo(boolean ativo) { this.ativo = ativo; }
-
-    public Set<String> getRoles() { return roles; }
-    public void setRoles(Set<String> roles) { this.roles = roles; }
 
     public LocalDateTime getDataCriacao() { return dataCriacao; }
     public LocalDateTime getDataAtualizacao() { return dataAtualizacao; }
