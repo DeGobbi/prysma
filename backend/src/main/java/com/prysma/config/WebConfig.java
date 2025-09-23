@@ -13,9 +13,10 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")  // libera todos os endpoints
-                        .allowedOrigins("http://localhost:4200") // libera o front Angular
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowCredentials(true)
                         .allowedHeaders("*");
             }
         };

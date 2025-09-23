@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CadastroUsuarioService } from '../../../services/usuario/cadastro-usuario.service';
+import { UsuarioService } from '../../../services/usuario/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-cadastro-usuario',
   standalone: true,
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
-  providers: [CadastroUsuarioService],
+  providers: [UsuarioService],
   templateUrl: './cadastro-usuario.component.html',
   styleUrl: './cadastro-usuario.component.scss'
 })
@@ -17,7 +17,7 @@ export class CadastroUsuarioComponent {
   cadastroForm: FormGroup;
   mensagem: string = '';
 
-  constructor(private fb: FormBuilder, private usuarioService: CadastroUsuarioService) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.cadastroForm = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

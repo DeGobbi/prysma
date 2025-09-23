@@ -3,5 +3,16 @@
     <li><a routerLink="/cadastrar">Cadastro de Usuários</a></li>
     <li><a routerLink="/produtos">Cadastro de Produtos</a></li>
     <li><a routerLink="/login">Login</a></li>
+
+    <!-- se tiver usuário logado -->
+    <ng-container *ngIf="usuarioService.usuario$ | async as usuario; else guest">
+      <li><a routerLink="/perfil">Perfil ({{ usuario.nome }})</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ng-container>
+
+    <!-- se não tiver usuário logado -->
+    <ng-template #guest>
+      <!-- você pode deixar vazio ou colocar algo aqui -->
+    </ng-template>
   </ul>
 </nav>

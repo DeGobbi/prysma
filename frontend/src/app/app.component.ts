@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppRoutingModule } from './app.routes';
 import { CadastroUsuarioComponent } from './components/usuario/cadastro-usuario/cadastro-usuario.component';
 import { HeaderComponent } from './components/header/header.component';
+import { UsuarioService } from './services/usuario/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,10 @@ import { HeaderComponent } from './components/header/header.component';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+  constructor(private usuarioService: UsuarioService) {}
+
+  ngOnInit() {
+    this.usuarioService.carregarUsuario().subscribe();
+  }
 }
