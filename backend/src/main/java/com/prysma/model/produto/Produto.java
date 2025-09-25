@@ -1,6 +1,9 @@
 package com.prysma.model.produto;
 
+import com.prysma.dto.produto.ProdutoDTO;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,8 +17,8 @@ public class Produto {
     private String nome;
     private String descricao;
     private String referencia;
-    private Double preco;
-    private Double desconto;
+    private BigDecimal preco;
+    private BigDecimal desconto;
     private Boolean ativo = true;
 
     @ManyToOne
@@ -49,13 +52,13 @@ public class Produto {
     public String getReferencia() { return referencia; }
     public void setReferencia(String referencia) { this.referencia = referencia; }
 
-    public Double getPreco() { return preco; }
-    public void setPreco(Double preco) { this.preco = preco; }
+    public BigDecimal getPreco() { return preco; }
+    public void setPreco(BigDecimal preco) { this.preco = preco; }
 
-    public Double getDesconto() { return desconto; }
-    public void setDesconto(Double desconto) { this.desconto = desconto; }
+    public BigDecimal getDesconto() { return desconto; }
+    public void setDesconto(BigDecimal desconto) { this.desconto = desconto; }
 
-    public Boolean getAtivo() { return ativo; }
+    public Boolean isAtivo() { return ativo; }
     public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 
     public Genero getGenero() { return genero; }
@@ -72,4 +75,5 @@ public class Produto {
 
     public LocalDateTime getDataAtualizacao() { return dataAtualizacao; }
     public void setDataAtualizacao(LocalDateTime dataAtualizacao) { this.dataAtualizacao = dataAtualizacao; }
+
 }

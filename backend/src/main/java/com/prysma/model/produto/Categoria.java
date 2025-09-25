@@ -9,7 +9,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome; // Inverno, Verão, Calçados, Academia
+    private String nome;
 
     // Getters e Setters
     public Long getId() { return id; }
