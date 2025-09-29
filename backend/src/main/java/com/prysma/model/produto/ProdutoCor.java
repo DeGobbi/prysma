@@ -14,7 +14,7 @@ public class ProdutoCor {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST) // 👈 permite criar a Cor junto
     @JoinColumn(name = "cor_id")
     private Cor cor;
 
@@ -39,4 +39,5 @@ public class ProdutoCor {
 
     public List<ProdutoEstoque> getEstoques() { return estoques; }
     public void setEstoques(List<ProdutoEstoque> estoques) { this.estoques = estoques; }
+
 }

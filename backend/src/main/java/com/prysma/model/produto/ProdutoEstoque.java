@@ -12,11 +12,11 @@ public class ProdutoEstoque {
     private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "produto_cor_id")
+    @JoinColumn(name = "produto_cor_id", nullable = false)
     private ProdutoCor produtoCor;
 
     @ManyToOne
-    @JoinColumn(name = "tamanho_id")
+    @JoinColumn(name = "tamanho_id", nullable = false)
     private Tamanho tamanho;
 
     // Getters e Setters

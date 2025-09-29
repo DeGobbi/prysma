@@ -1,13 +1,12 @@
 package com.prysma.mapper;
 
 import com.prysma.dto.produto.ProdutoDTO;
-import com.prysma.model.produto.Categoria;
-import com.prysma.model.produto.Genero;
-import com.prysma.model.produto.Produto;
+import com.prysma.dto.produto.ProdutoCorDTO;
+import com.prysma.dto.produto.ProdutoEstoqueDTO;
+import com.prysma.model.produto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProdutoMapper {
 
@@ -34,8 +33,42 @@ public class ProdutoMapper {
             );
         }
 
+        // 🔥 Mapear cores com imagens e estoques
+        if (produto.getCores() != null) {
+            List<ProdutoCorDTO> coresDTO = produto.getCores().stream().map(cor -> {
+                ProdutoCorDTO corDTO = new ProdutoCorDTO();
+                corDTO.setCorNome(cor.getCor().getNome());
+
+                // Mapear imagens
+                List<String> imagens = cor.getImagens() != null
+                        ? cor.getImagens().stream()
+                        .map(ProdutoImagem::getUrlImagem)
+                        .toList()
+                        : List.of();
+                corDTO.setImagens(imagens);
+
+                // Mapear estoques
+                List<ProdutoEstoqueDTO> estoques = cor.getEstoques() != null
+                        ? cor.getEstoques().stream().map(est -> {
+                    ProdutoEstoqueDTO estDTO = new ProdutoEstoqueDTO();
+                    estDTO.setQuantidade(est.getQuantidade());
+                    estDTO.setTamanhoId(est.getTamanho().getId());
+                    estDTO.setCorId(est.getProdutoCor().getId());
+                    estDTO.setProdutoId(est.getProdutoCor().getProduto().getId());
+                    return estDTO;
+                }).toList()
+                        : List.of();
+                corDTO.setEstoques(estoques);
+
+                return corDTO;
+            }).toList();
+
+            dto.setCores(coresDTO);
+        }
+
         dto.setDataCriacao(produto.getDataCriacao());
         dto.setDataAtualizacao(produto.getDataAtualizacao());
+
         return dto;
     }
 

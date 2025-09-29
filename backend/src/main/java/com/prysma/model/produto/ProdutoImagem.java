@@ -12,7 +12,7 @@ public class ProdutoImagem {
     private String urlImagem;
 
     @ManyToOne
-    @JoinColumn(name = "produto_cor_id")
+    @JoinColumn(name = "produto_cor_id", nullable = false)
     private ProdutoCor produtoCor;
 
     // Getters e Setters

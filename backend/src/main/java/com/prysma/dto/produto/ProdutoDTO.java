@@ -11,14 +11,14 @@ public class ProdutoDTO {
     private String referencia;
     private BigDecimal preco;
     private BigDecimal desconto;
-    private boolean ativo;
-
-    private List<String> categorias;
+    private Boolean ativo;
     private String genero;
-    private List<String> cores;
+    private List<String> categorias;
+    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataAtualizacao = LocalDateTime.now();
 
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
+    // Novo: cores completas com imagens e estoque
+    private List<ProdutoCorDTO> cores;
 
     // Getters e Setters
     public Long getId() { return id; }
@@ -39,17 +39,17 @@ public class ProdutoDTO {
     public BigDecimal getDesconto() { return desconto; }
     public void setDesconto(BigDecimal desconto) { this.desconto = desconto; }
 
-    public boolean isAtivo() { return ativo; }
-    public void setAtivo(boolean ativo) { this.ativo = ativo; }
-
-    public List<String> getCategorias() { return categorias; }
-    public void setCategorias(List<String> categorias) { this.categorias = categorias; }
+    public Boolean isAtivo() { return ativo; }
+    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 
     public String getGenero() { return genero; }
     public void setGenero(String genero) { this.genero = genero; }
 
-    public List<String> getCores() { return cores; }
-    public void setCores(List<String> cores) { this.cores = cores; }
+    public List<String> getCategorias() { return categorias; }
+    public void setCategorias(List<String> categorias) { this.categorias = categorias; }
+
+    public List<ProdutoCorDTO> getCores() { return cores; }
+    public void setCores(List<ProdutoCorDTO> cores) { this.cores = cores; }
 
     public LocalDateTime getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(LocalDateTime dataCriacao) { this.dataCriacao = dataCriacao; }

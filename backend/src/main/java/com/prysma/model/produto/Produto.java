@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,8 +19,10 @@ public class Produto {
     private String descricao;
     private String referencia;
     private BigDecimal preco;
-    private BigDecimal desconto;
     private Boolean ativo = true;
+
+    @Column(nullable = true)
+    private BigDecimal desconto = null;
 
     @ManyToOne
     @JoinColumn(name = "genero_id")
@@ -27,14 +30,14 @@ public class Produto {
 
     @ManyToMany
     @JoinTable(
-            name = "produto_categoria",
+            name = "produto_categorias",
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
     private List<Categoria> categorias;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProdutoCor> cores;
+    private List<ProdutoCor> cores = new ArrayList<>();
 
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private LocalDateTime dataAtualizacao = LocalDateTime.now();
