@@ -15,9 +15,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // libera acesso aos endpoints da API
                         .requestMatchers("/api/**").permitAll()
+                        // libera acesso público às imagens
+                        .requestMatchers("/uploads/**").permitAll()
+                        // qualquer outro endpoint precisa de autenticação
                         .anyRequest().authenticated()
                 );
+
         return http.build();
-        }
     }
+}

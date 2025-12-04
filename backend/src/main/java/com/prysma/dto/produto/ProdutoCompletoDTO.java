@@ -10,6 +10,8 @@ public class ProdutoCompletoDTO {
     private Long generoId; // agora é ID
     private List<Long> categoriaIds; // agora são IDs
     private List<ProdutoCorDTO> cores;
+    private String referencia;
+
 
     // Getters e Setters
     public String getNome() { return nome; }
@@ -29,4 +31,7 @@ public class ProdutoCompletoDTO {
 
     public List<ProdutoCorDTO> getCores() { return cores; }
     public void setCores(List<ProdutoCorDTO> cores) { this.cores = cores; }
+
+    public String getReferencia() { return referencia; }
+    public void setReferencia(String referencia) { this.referencia = referencia; }
 }

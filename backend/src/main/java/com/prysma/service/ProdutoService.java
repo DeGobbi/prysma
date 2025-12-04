@@ -1,5 +1,9 @@
 package com.prysma.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.prysma.controller.ImagemController;
 import com.prysma.dto.produto.ProdutoDTO;
 import com.prysma.dto.produto.ProdutoEstoqueDTO;
 import com.prysma.dto.produto.ProdutoCompletoDTO;
@@ -10,12 +14,20 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
+import com.prysma.service.ImagemService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
+
+
 
 @Service
 public class ProdutoService {
+
+    private static final Logger log = LoggerFactory.getLogger(ProdutoService.class);
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -38,6 +50,14 @@ public class ProdutoService {
     @Autowired
     private CorRepository corRepository;
 
+    @Autowired
+    private ImagemService imagemService;
+
+    @Autowired
+    private ImagemController imagemController;
+
+
+
     public ProdutoDTO criarProduto(ProdutoDTO dto) {
         // busca categorias pelo nome
         List<Categoria> categorias = categoriaRepository.findByNomeIn(dto.getCategorias());
@@ -57,7 +77,7 @@ public class ProdutoService {
         return produtoRepository.findAll()
                 .stream()
                 .map(ProdutoMapper::toDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public ProdutoDTO buscarPorId(Long id) {
@@ -100,13 +120,13 @@ public class ProdutoService {
             img.setProdutoCor(cor);
             img.setUrlImagem(url);
             return img;
-        }).toList();
+        }).collect(Collectors.toList());
 
         return imagemRepository.saveAll(imagens);
     }
 
     @Transactional
-    public ProdutoDTO criarProdutoCompleto(ProdutoCompletoDTO dto) {
+    public ProdutoDTO criarProdutoCompleto(ProdutoCompletoDTO dto) throws IOException {
         if (dto.getGeneroId() == null) {
             throw new IllegalArgumentException("O campo generoId não pode ser nulo");
         }
@@ -115,6 +135,12 @@ public class ProdutoService {
         }
         if (dto.getCategoriaIds().stream().anyMatch(Objects::isNull)) {
             throw new IllegalArgumentException("CategoriaIds não pode conter valores nulos");
+        }
+        if (dto.getReferencia() != null && !dto.getReferencia().isBlank()) {
+            boolean exists = produtoRepository.existsByReferencia(dto.getReferencia());
+            if (exists) {
+                throw new IllegalArgumentException("A referência '" + dto.getReferencia() + "' já está em uso.");
+            }
         }
 
         // Buscar categorias
@@ -135,6 +161,12 @@ public class ProdutoService {
         produto.setGenero(genero);
         produto.setCategorias(categorias);
         produto.setDesconto(null);
+        produto.setReferencia(
+                dto.getReferencia() != null && !dto.getReferencia().isBlank() ? dto.getReferencia() : null
+        );
+
+
+        System.out.println(produto.getReferencia());
 
         // Mapear cores
         List<ProdutoCor> cores = dto.getCores().stream().map(corDTO -> {
@@ -153,7 +185,7 @@ public class ProdutoService {
                 img.setProdutoCor(corEntity);
                 img.setUrlImagem(url);
                 return img;
-            }).toList();
+            }).collect(Collectors.toList());
             corEntity.setImagens(imagens);
 
             // Mapear estoques
@@ -167,16 +199,35 @@ public class ProdutoService {
                 estoque.setTamanho(tamanho);
 
                 return estoque;
-            }).toList();
+            }).collect(Collectors.toList());
             corEntity.setEstoques(estoques);
 
             return corEntity;
-        }).toList();
+        }).collect(Collectors.toList());
 
         produto.setCores(cores);
 
         // Salvar produto (cascade salva cores, imagens, estoques e cores novas)
         Produto salvo = produtoRepository.save(produto);
+
+        for (ProdutoCor cor : salvo.getCores()) {
+
+
+            for (ProdutoImagem img : cor.getImagens()) {
+
+                String urlTemp = img.getUrlImagem();
+
+                String novaUrl = imagemService.moverImagemParaProduto(urlTemp, salvo.getId(), cor.getId());
+
+
+                img.setUrlImagem(novaUrl);
+                imagemRepository.save(img);
+            }
+        }
+        // 🔄 Salva novamente para atualizar as URLs definitivas
+        produtoRepository.save(salvo);
+
+        imagemController.limparTemp();
 
         return ProdutoMapper.toDTO(salvo);
     }

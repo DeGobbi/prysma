@@ -17,12 +17,14 @@ public class Produto {
 
     private String nome;
     private String descricao;
-    private String referencia;
     private BigDecimal preco;
     private Boolean ativo = true;
 
     @Column(nullable = true)
     private BigDecimal desconto = null;
+
+    @Column(nullable = true, unique = true)
+    private String referencia = null;
 
     @ManyToOne
     @JoinColumn(name = "genero_id")
