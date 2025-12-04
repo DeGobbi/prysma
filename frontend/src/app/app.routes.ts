@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroUsuarioComponent } from './components/usuario/cadastro-usuario/cadastro-usuario.component';
 import { LoginComponent } from './components/usuario/login/login.component';
-import { ProdutosComponent } from './components/produtos/produtos.component';
-import { AuthGuard } from './guard/auth.guard';
-import { AdminGuard } from './guard/admin.guard';
+import { CadastroProdutoComponent } from './components/produto/cadastro-produto/cadastro-produto.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 export const routes: Routes = [
     { path: 'cadastrar', component: CadastroUsuarioComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuard, AdminGuard] },
+    { path: 'produtos', component: CadastroProdutoComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({
