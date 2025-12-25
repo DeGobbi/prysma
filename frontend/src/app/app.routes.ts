@@ -5,8 +5,10 @@ import { LoginComponent } from './components/usuario/login/login.component';
 import { CadastroProdutoComponent } from './components/produto/cadastro-produto/cadastro-produto.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { AdminGuard } from './guards/admin/admin.guard';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
+    { path: '', component: HomeComponent },
     { path: 'cadastrar', component: CadastroUsuarioComponent },
     { path: 'login', component: LoginComponent },
     { path: 'produtos', component: CadastroProdutoComponent, canActivate: [AuthGuard, AdminGuard] },

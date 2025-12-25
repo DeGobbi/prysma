@@ -1,21 +1,82 @@
-<nav class="navbar">
-  <ul>
-    <li><a routerLink="/cadastrar">Cadastro de Usuários</a></li>
-    <li><a routerLink="/produtos">Cadastro de Produtos</a></li>
-    <li><a routerLink="/login">Login</a></li>
+<nav class="header">
 
-    <!-- se tiver usuário logado -->
+  <!-- ESQUERDA -->
+  <div class="header-left">
+    <a routerLink="/" class="logo">PRYSMA</a>
+  </div>
+
+  <!-- CENTRO -->
+  <div class="header-center">
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Buscar produtos..."
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="buscar()"
+      />
+      <button (click)="buscar()" class="search-btn">🔍</button>
+    </div>
+  </div>
+
+  <!-- DIREITA -->
+  <div class="header-right">
+
+    <!-- SE ESTIVER LOGADO -->
     <ng-container *ngIf="usuarioService.usuario$ | async as usuario; else guest">
-      <li><a routerLink="/perfil">Perfil ({{ usuario.nome }})</a></li>
-      <li><a (click)="logout()">Logout</a></li>
-      <li><a *ngIf="usuario.admin" routerLink="/admin">Admin</a></li>
+
+      <!-- CARRINHO -->
+      <button class="cart-btn" routerLink="/carrinho">
+        🛒
+      </button>
+
+      <!-- DROPDOWN DO USUÁRIO -->
+      <div class="user-dropdown"
+           (mouseenter)="userDropdownAtivo = true"
+           (mouseleave)="userDropdownAtivo = false">
+
+        <!-- Botão principal (foto + nome) -->
+        <div class="user-info">
+          <!-- <img class="user-photo"
+               [src]="usuario.fotoUrl || 'assets/default-user.png'"
+               alt="Foto do usuário"> -->
+
+          <span class="user-name">{{ usuario.nome }}</span>
+        </div>
+
+        <!-- MENU -->
+        <div *ngIf="userDropdownAtivo" class="user-menu">
+
+          <a routerLink="/perfil">Perfil</a>
+
+          <a *ngIf="usuario.admin" routerLink="/admin">Painel Admin</a>
+
+          <a (click)="logout()">Sair</a>
+        </div>
+
+      </div>
+
     </ng-container>
 
-    
-
-    <!-- se não tiver usuário logado -->
+    <!-- SE NÃO ESTIVER LOGADO -->
     <ng-template #guest>
-      <!-- você pode deixar vazio ou colocar algo aqui -->
+
+      <div class="login-dropdown" [class.open]="isLoginOpen">
+        <button class="login-btn"
+                (click)="toggleLoginDropdown($event)"
+                aria-haspopup="true"
+                [attr.aria-expanded]="isLoginOpen">
+          Entrar ▾
+        </button>
+
+        <div class="dropdown-menu" *ngIf="isLoginOpen" role="menu">
+          <a routerLink="/login" (click)="closeLoginDropdown()">Login</a>
+          <a routerLink="/cadastrar" (click)="closeLoginDropdown()">Cadastro</a>
+        </div>
+      </div>
+
+      <button routerLink="/carrinho" class="cart-btn">🛒</button>
+
     </ng-template>
-  </ul>
+
+  </div>
 </nav>
