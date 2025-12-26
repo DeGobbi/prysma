@@ -1,0 +1,134 @@
+/* Fundo da página */
+.cadastro-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  padding-top: 50px;
+  box-sizing: border-box;
+
+  background: linear-gradient(135deg, #f7f8fa, #eceff3);
+}
+
+/* Card */
+.cadastro-container {
+  width: 100%;
+  max-width: 420px;
+
+  background: #fff;
+  padding: 32px;
+
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+  animation: fadeIn 0.4s ease;
+}
+
+/* Título */
+.cadastro-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Grupos */
+.cadastro-container form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* Labels */
+.cadastro-container label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.cadastro-container input {
+  padding: 12px 14px;
+
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+
+  font-size: 0.95rem;
+  outline: none;
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cadastro-container input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+}
+
+/* Input inválido */
+.cadastro-container input.ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+
+/* Mensagens de erro */
+.cadastro-container small {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #e74c3c;
+  min-height: 14px;
+  display: block;
+}
+
+/* Botão */
+.cadastro-container button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #6c63ff;
+  color: #fff;
+
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.cadastro-container button:hover {
+  background: #5a52e0;
+}
+
+.cadastro-container button:active {
+  transform: scale(0.98);
+}
+
+.cadastro-container button:disabled {
+  background: #b5b2f3;
+  cursor: not-allowed;
+}
+
+/* Mensagem geral (sucesso ou erro) */
+.cadastro-container p {
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 600;
+  color: #2ecc71; /* sucesso */
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
